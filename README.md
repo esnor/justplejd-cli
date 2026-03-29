@@ -5,7 +5,7 @@ A Go CLI that controls [Plejd](https://www.plejd.com/) smart home devices over B
 ## Installation
 
 ```bash
-go install github.com/gloriaoracle/justplejd-cli/cmd/justplejd@latest
+go install github.com/peterssonjesper/justplejd-cli/cmd/justplejd@latest
 ```
 
 Or build from source:

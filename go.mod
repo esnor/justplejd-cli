@@ -1,4 +1,4 @@
-module github.com/gloriaoracle/justplejd-cli
+module github.com/peterssonjesper/justplejd-cli
 
 go 1.25.0
 
