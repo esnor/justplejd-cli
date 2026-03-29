@@ -1,6 +1,6 @@
 # Plejd BLE Mesh Protocol — Reverse Engineering Notes
 
-Compiled from: pyplejd (thomasloven), just_plejd (Jesper), hassio-plejd (icanos),
+Compiled from: pyplejd (thomasloven), justplejd (Jesper), hassio-plejd (icanos),
 ha-plejd (klali), and community issue tracker discussions.
 
 ---
@@ -360,7 +360,7 @@ Content-Type: application/json
 
 ## 10. Keepalive / Health Check
 
-- Periodic ping every ~5 seconds (just_plejd)
+- Periodic ping every ~5 seconds (justplejd)
 - If ping fails: disconnect and reconnect to mesh
 - Reconnection picks strongest available device
 
