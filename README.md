@@ -39,6 +39,7 @@ justplejd scene "Movie"
 | Command | Description |
 |---------|-------------|
 | `login` | Authenticate with Plejd cloud API |
+| `sites` | List all sites on the account |
 | `devices` | List all devices with room, address, and traits |
 | `rooms` | List rooms and their devices |
 | `scenes` | List scenes with indices |
@@ -49,6 +50,10 @@ justplejd scene "Movie"
 | `listen` | Listen for mesh events in real-time |
 | `status` | Show connection status and site info |
 | `time [--set]` | Get or set mesh time |
+| `thermostat set-temp DEVICE TEMP` | Set thermostat temperature (5-40°C) |
+| `thermostat mode DEVICE MODE` | Set thermostat mode (normal/vacation/boost/frost/night/day/service/curing) |
+| `thermostat pwm DEVICE DUTY` | Set thermostat PWM duty cycle (0-100%) |
+| `tilt DEVICE ANGLE` | Set cover tilt angle (0-255) |
 
 ## Global Flags
 
@@ -67,7 +72,8 @@ justplejd scene "Movie"
 # Single site account
 justplejd login --email you@example.com --password secret
 
-# Multiple sites — specify which one
+# Multiple sites — list them first, then login with a specific site
+justplejd sites --email you@example.com --password secret
 justplejd login --email you@example.com --password secret --site-id <uuid>
 ```
 
@@ -111,6 +117,25 @@ justplejd listen
 # JSON output (for scripting)
 justplejd listen --json
 # {"Type":"change_state","Address":39,"State":1,...}
+```
+
+### Thermostat
+
+```bash
+# Set temperature
+justplejd thermostat set-temp "Hall Thermostat" 22.5
+
+# Set mode
+justplejd thermostat mode "Hall Thermostat" boost
+
+# Set PWM duty cycle
+justplejd thermostat pwm "Hall Thermostat" 75
+```
+
+### Cover Tilt
+
+```bash
+justplejd tilt "Blinds" 128
 ```
 
 ### JSON Output
@@ -169,7 +194,9 @@ Challenge-response using SHA256:
 | 2 | 0x04 | TEMP (color temperature) |
 | 3 | 0x08 | POWER (has power output) |
 | 4 | 0x10 | COVER |
+| 5 | 0x20 | CLIMATE (thermostat) |
 | 6 | 0x40 | TILT |
+| 7 | 0x80 | CLIMATE_PWM (PWM thermostat) |
 
 ### Known Hardware Types
 
@@ -198,8 +225,6 @@ Challenge-response using SHA256:
 
 These protocol features have been observed in reference implementations but are not yet implemented:
 
-- **Thermostat control**: Set point, operating mode (Floor/Room/PWM), PWM duty cycle (commands `0x045C`, `0x045F`, `0x0461`, `0x047E`)
-- **Cover tilt angle**: Fine-grained tilt control beyond position (MiniPkg type `0x18`)
 - **Firmware version query**: Read firmware info from `plejdDevices` data
 - **Battery status**: Low-power battery info from motion sensors (MiniPkg type `0x16`)
 - **Mesh topology mapping**: Use device addressing and group info to map the mesh network
