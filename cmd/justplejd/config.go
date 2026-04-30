@@ -6,7 +6,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/gloriaoracle/justplejd-cli/pkg/api"
+	"github.com/peterssonjesper/justplejd-cli/pkg/api"
 )
 
 // Config holds persistent CLI configuration.
